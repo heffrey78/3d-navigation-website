@@ -144,11 +144,10 @@ body {
     animation: glitch 1s linear infinite;
 }
 
-
 #placard {
     position: fixed;
     width: 600px;
-    max-height: 400px;
+    max-height: 80vh; /* Increased from 600px to 80% of viewport height */
     background-color: rgba(10, 25, 47, 0.9);
     color: #0984e3;
     font-family: 'Courier New', monospace;
@@ -158,6 +157,8 @@ body {
     box-shadow: 0 0 10px rgba(9, 132, 227, 0.5);
     overflow-y: auto;
     z-index: 1000;
+    display: flex; /* Added to use flexbox */
+    flex-direction: column; /* Stack children vertically */
 }
 
 #placard h2 {
@@ -169,6 +170,8 @@ body {
 #placard .placard-content {
     font-size: 14px;
     line-height: 1.4;
+    flex-grow: 1; /* Allow content to grow and fill available space */
+    overflow-y: auto; /* Add scrollbar to content if it overflows */
 }
 
 /* Add a scrollbar style for webkit browsers */

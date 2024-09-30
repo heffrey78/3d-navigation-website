@@ -22,25 +22,39 @@ let gameLoop;
 let board;
 let currentPiece;
 let score;
+let dropCounter = 0;
+let dropInterval = 1000; // Increased from 1000ms to 2000ms (2 seconds) to slow down the piece drop speed
 
 function createTetrisGame(containerId) {
+    console.log('Creating Tetris game in container:', containerId);
     const container = document.getElementById(containerId);
+    if (!container) {
+        console.error('Container not found:', containerId);
+        return;
+    }
     canvas = document.createElement('canvas');
     canvas.width = COLS * BLOCK_SIZE;
     canvas.height = ROWS * BLOCK_SIZE;
     ctx = canvas.getContext('2d');
     container.appendChild(canvas);
 
-    document.addEventListener('keydown', handleKeyPress);
+    // Focus on the game container to capture keyboard events
+    container.tabIndex = 1000;
+    container.focus();
+
+    container.addEventListener('keydown', handleKeyPress);
+    console.log('Keyboard event listener added to container');
 
     initGame();
 }
 
 function initGame() {
+    console.log('Initializing game');
     board = Array(ROWS).fill().map(() => Array(COLS).fill(0));
     score = 0;
     createNewPiece();
     gameLoop = setInterval(update, 1000 / 60);
+    console.log('Game loop started');
 }
 
 function createNewPiece() {
@@ -52,11 +66,21 @@ function createNewPiece() {
         x: Math.floor(COLS / 2) - Math.floor(SHAPES[shapeIndex][0].length / 2),
         y: 0
     };
+    console.log('New piece created:', currentPiece);
 }
 
-function update() {
-    moveDown();
+function update(time = 0) {
+    const deltaTime = time - (update.lastTime || 0);
+    update.lastTime = time;
+
+    dropCounter += deltaTime;
+    if (dropCounter > dropInterval) {
+        moveDown();
+        dropCounter = 0;
+    }
+
     draw();
+    requestAnimationFrame(update);
 }
 
 function moveDown() {
@@ -117,6 +141,7 @@ function lockPiece() {
             }
         }
     }
+    console.log('Piece locked');
 }
 
 function clearLines() {
@@ -125,6 +150,7 @@ function clearLines() {
             board.splice(y, 1);
             board.unshift(Array(COLS).fill(0));
             score += 100;
+            console.log('Line cleared, new score:', score);
         }
     }
 }
@@ -136,6 +162,7 @@ function gameOver() {
     ctx.fillStyle = 'white';
     ctx.font = '20px Arial';
     ctx.fillText('Game Over', canvas.width / 2 - 40, canvas.height / 2);
+    console.log('Game Over');
 }
 
 function draw() {
@@ -166,6 +193,7 @@ function draw() {
 }
 
 function handleKeyPress(event) {
+    console.log('Key pressed:', event.keyCode);
     if (event.keyCode === 37) {
         event.preventDefault();
         moveLeft();
@@ -181,5 +209,14 @@ function handleKeyPress(event) {
     }
 }
 
-// Export the createTetrisGame function
+function stopTetrisGame() {
+    console.log('Stopping Tetris game');
+    clearInterval(gameLoop);
+    if (canvas && canvas.parentNode) {
+        canvas.parentNode.removeChild(canvas);
+    }
+}
+
+// Export the createTetrisGame and stopTetrisGame functions
 window.createTetrisGame = createTetrisGame;
+window.stopTetrisGame = stopTetrisGame;

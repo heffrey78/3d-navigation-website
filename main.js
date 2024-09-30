@@ -309,9 +309,12 @@ function turnAround() {
 
 // Handle user input
 function handleInput(event) {
+    console.log('Key pressed:', event.key, 'Key code:', event.keyCode);
+    
     if (isTetrisActive) {
         // If Tetris is active, only handle Escape key to exit the game
         if (event.key === 'Escape') {
+            console.log('Exiting Tetris game');
             stopTetrisGame();
             hidePlacard();
             isTetrisActive = false;
@@ -566,6 +569,7 @@ function hidePlacard() {
             // Stop the Tetris game if it's running
             if (typeof stopTetrisGame === 'function') {
                 stopTetrisGame();
+                console.log('Tetris game stopped');
             }
             tetrisGame = null;
             isTetrisActive = false;
