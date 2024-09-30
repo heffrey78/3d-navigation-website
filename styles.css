@@ -1,0 +1,213 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', monospace;
+    background-color: #0a192f;  /* deepBlue */
+    color: #0984e3;  /* neonBlue */
+    overflow: hidden;
+}
+
+#scene {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#instructions {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(10, 25, 47, 0.7);  /* deepBlue with opacity */
+    padding: 15px;
+    border: 1px solid #0984e3;  /* neonBlue */
+    border-radius: 5px;
+    z-index: 2;
+    max-width: 300px;
+    box-shadow: 0 0 10px #0984e3;  /* neonBlue glow */
+}
+
+#instructions h2 {
+    color: #00b894;  /* cyan */
+    margin-top: 0;
+}
+
+#instructions ul {
+    padding-left: 20px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(10, 25, 47, 0.8);  /* deepBlue with opacity */
+}
+
+.modal-content {
+    background-color: #0a192f;  /* deepBlue */
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #0984e3;  /* neonBlue */
+    width: 80%;
+    max-width: 600px;
+    color: #0984e3;  /* neonBlue */
+    box-shadow: 0 0 10px #0984e3;  /* neonBlue glow */
+}
+
+#modal-title {
+    color: #00b894;  /* cyan */
+}
+
+#modal-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+    border: 1px solid #0984e3;  /* neonBlue */
+}
+
+#modal-close {
+    background-color: #0984e3;  /* neonBlue */
+    color: #0a192f;  /* deepBlue */
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#modal-close:hover {
+    background-color: #0a192f;  /* deepBlue */
+    color: #0984e3;  /* neonBlue */
+    border: 1px solid #0984e3;  /* neonBlue */
+}
+
+#loading-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(10, 25, 47, 0.8);  /* deepBlue with opacity */
+    color: #0984e3;  /* neonBlue */
+    padding: 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    z-index: 4;
+    border: 1px solid #0984e3;  /* neonBlue */
+    box-shadow: 0 0 10px #0984e3;  /* neonBlue glow */
+}
+
+/* Glitch effect */
+@keyframes glitch {
+    0% {
+        text-shadow: 0.05em 0 0 #00b894, -0.05em -0.025em 0 #e84393,
+            0.025em 0.05em 0 #fdcb6e;
+    }
+    14% {
+        text-shadow: 0.05em 0 0 #00b894, -0.05em -0.025em 0 #e84393,
+            0.025em 0.05em 0 #fdcb6e;
+    }
+    15% {
+        text-shadow: -0.05em -0.025em 0 #00b894, 0.025em 0.025em 0 #e84393,
+            -0.05em -0.05em 0 #fdcb6e;
+    }
+    49% {
+        text-shadow: -0.05em -0.025em 0 #00b894, 0.025em 0.025em 0 #e84393,
+            -0.05em -0.05em 0 #fdcb6e;
+    }
+    50% {
+        text-shadow: 0.025em 0.05em 0 #00b894, 0.05em 0 0 #e84393,
+            0 -0.05em 0 #fdcb6e;
+    }
+    99% {
+        text-shadow: 0.025em 0.05em 0 #00b894, 0.05em 0 0 #e84393,
+            0 -0.05em 0 #fdcb6e;
+    }
+    100% {
+        text-shadow: -0.025em 0 0 #00b894, -0.025em -0.025em 0 #e84393,
+            -0.025em -0.05em 0 #fdcb6e;
+    }
+}
+
+#instructions h2, #modal-title {
+    animation: glitch 1s linear infinite;
+}
+
+
+#placard {
+    position: fixed;
+    width: 600px;
+    max-height: 400px;
+    background-color: rgba(10, 25, 47, 0.9);
+    color: #0984e3;
+    font-family: 'Courier New', monospace;
+    padding: 15px;
+    border: 1px solid #0984e3;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(9, 132, 227, 0.5);
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+#placard h2 {
+    color: #00b894;
+    margin-top: 0;
+    font-size: 18px;
+}
+
+#placard .placard-content {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Add a scrollbar style for webkit browsers */
+#placard::-webkit-scrollbar {
+    width: 8px;
+}
+
+#placard::-webkit-scrollbar-track {
+    background: rgba(10, 25, 47, 0.5);
+}
+
+#placard::-webkit-scrollbar-thumb {
+    background-color: #0984e3;
+    border-radius: 4px;
+}
+
+#navigation-menu {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(10, 25, 47, 0.8);
+    color: #0984e3;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #0984e3;
+    box-shadow: 0 0 10px rgba(9, 132, 227, 0.5);
+    z-index: 1000;
+}
+
+#navigation-menu div {
+    margin: 5px 0;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#navigation-menu div:hover {
+    color: #00b894;
+}

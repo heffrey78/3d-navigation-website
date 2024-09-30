@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeff Wikstrom</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+    <script src="main.js"></script>
+</head>
+<body>
+    <canvas id="scene"></canvas>
+    <div id="instructions">
+        <h2>Navigation Instructions</h2>
+        <p>Use arrow keys to navigate:</p>
+        <ul>
+            <li>Up Arrow: Move forward</li>
+            <li>Down Arrow: Turn around</li>
+            <li>Left/Right Arrow: Choose path at branch points</li>
+            <li>Enter: View details of current node</li>
+            <li>Space: Menu</li>
+        </ul>
+    </div>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2 id="modal-title"></h2>
+            <img id="modal-image" src="" alt="">
+            <p id="modal-text"></p>
+            <button id="modal-close">Close</button>
+        </div>
+    </div>
+    <div id="loading-indicator">Loading...</div>
+</body>
+</html>
