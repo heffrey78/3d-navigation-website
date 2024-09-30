@@ -1,4 +1,4 @@
-// Tetris game implementation
+// tetris.js
 const COLS = 10;
 const ROWS = 20;
 const BLOCK_SIZE = 30;
@@ -23,9 +23,9 @@ let board;
 let currentPiece;
 let score;
 let dropCounter = 0;
-let dropInterval = 1000; // Increased from 1000ms to 2000ms (2 seconds) to slow down the piece drop speed
+let dropInterval = 1000; // 1 second
 
-function createTetrisGame(containerId) {
+export function createTetrisGame(containerId) {
     console.log('Creating Tetris game in container:', containerId);
     const container = document.getElementById(containerId);
     if (!container) {
@@ -42,8 +42,7 @@ function createTetrisGame(containerId) {
     container.tabIndex = 1000;
     container.focus();
 
-    container.addEventListener('keydown', handleKeyPress);
-    console.log('Keyboard event listener added to container');
+    console.log('Tetris game created');
 
     initGame();
 }
@@ -192,8 +191,8 @@ function draw() {
     ctx.fillText(`Score: ${score}`, 10, 25);
 }
 
-function handleKeyPress(event) {
-    console.log('Key pressed:', event.keyCode);
+export function handleTetrisKeyPress(event) {
+    console.log('Tetris key pressed:', event.keyCode);
     if (event.keyCode === 37) {
         event.preventDefault();
         moveLeft();
@@ -209,14 +208,10 @@ function handleKeyPress(event) {
     }
 }
 
-function stopTetrisGame() {
+export function stopTetrisGame() {
     console.log('Stopping Tetris game');
     clearInterval(gameLoop);
     if (canvas && canvas.parentNode) {
         canvas.parentNode.removeChild(canvas);
     }
 }
-
-// Export the createTetrisGame and stopTetrisGame functions
-window.createTetrisGame = createTetrisGame;
-window.stopTetrisGame = stopTetrisGame;

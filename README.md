@@ -5,11 +5,29 @@ This project demonstrates a 3D navigable plane with a dotted path, allowing user
 ## Features
 
 - 3D environment created with Three.js
-- Navigable path using the Up Arrow key
+- Navigable path using arrow keys
 - Placards with thumbnails at each node
 - Detailed information modal for each node
 - Debug information display
 - Responsive design
+- Modular architecture using ES6 modules
+- Integrated Tetris game at a specific node
+
+## Project Structure
+
+The project now uses a modular structure with ES6 modules:
+
+- `js/app.js`: Main application orchestrator
+- `js/sceneManager.js`: Manages the 3D scene and Tron-style effects
+- `js/pathManager.js`: Handles path and node management
+- `js/navigationManager.js`: Manages navigation along the path
+- `js/uiManager.js`: Handles UI elements like placard, menu, and terminal
+- `js/tetrisManager.js`: Manages the integrated Tetris game
+- `js/pathData.js`: Contains the path and node data
+- `js/constants.js`: Stores constant values used across the application
+- `tetris.js`: Tetris game implementation
+- `index.html`: Main HTML file
+- `styles.css`: CSS styles for the application
 
 ## How to Run
 
@@ -34,8 +52,12 @@ This project demonstrates a 3D navigable plane with a dotted path, allowing user
 ## How to Use
 
 - Use the Up Arrow key to move forward along the path.
+- Use the Down Arrow key to turn around.
 - Press Enter to view detailed information about the current node.
-- Observe the debug information in the top-left corner for current position and node details.
+- Press Space to open the navigation menu.
+- Use number keys (0-9) to quickly navigate to specific nodes.
+- Press Escape to close placards or exit the Tetris game.
+- Observe the debug information in the terminal for current position and node details.
 
 ## Testing and Troubleshooting
 
@@ -43,22 +65,23 @@ To ensure everything is working correctly, follow these steps:
 
 1. Open the browser's developer console (usually F12 or right-click and select "Inspect").
 2. Refresh the page and check for any error messages in the console.
-3. Verify that you can see a 3D scene with a brown ground plane and a blue sky.
-4. Look for a white dotted line representing the path and rectangular placards for each node.
-5. Try using the Up Arrow key and observe the following:
+3. Verify that you can see a 3D scene with a Tron-style grid and effects.
+4. Look for a glowing path and node representations.
+5. Try using the arrow keys and observe the following:
    - The camera should smoothly move to new positions along the path.
-   - The debug info in the top-left corner should update with new node information.
+   - The terminal should update with new node information.
    - Console logs should appear for each key press.
-6. If the Up Arrow key doesn't seem to work:
+6. If the arrow keys don't seem to work:
    - Click on the webpage to ensure it has focus.
-   - Check if the console logs appear when pressing the key. If not, there might be an issue with the event listener.
-7. Press Enter when on a node to check if the modal with detailed information appears.
-8. Try to reach the end of the path by pressing the Up Arrow key multiple times. The movement should stop at the last node.
+   - Check if the console logs appear when pressing the keys. If not, there might be an issue with the event listener.
+7. Press Enter when on a node to check if the placard with detailed information appears.
+8. Navigate to the Tetris game node and verify that the game starts and can be played.
+9. Try to reach the end of the path by pressing the Up Arrow key multiple times. The movement should stop at the last node.
 
 If you encounter any issues:
 
-- Make sure Three.js is properly loaded. Check the console for any related errors.
-- Verify that all files (index.html, main.js, styles.css) are in the correct location and have the right content.
+- Make sure all required scripts are properly loaded. Check the console for any related errors.
+- Verify that all files are in the correct location and have the right content.
 - Try clearing your browser cache and reloading the page.
 - If using Chrome, test in an Incognito window to rule out extension conflicts.
 
@@ -69,8 +92,8 @@ If you continue to experience problems after following the troubleshooting steps
 1. A description of the issue you're experiencing.
 2. Any error messages from the browser console.
 3. The browser and operating system you're using.
-4. Screenshots of the 3D scene and debug information, if possible.
-5. The contents of the debug information panel when the issue occurs.
+4. Screenshots of the 3D scene and terminal information, if possible.
+5. The contents of the terminal when the issue occurs.
 
 With this information, we can further diagnose and resolve any remaining issues.
 
