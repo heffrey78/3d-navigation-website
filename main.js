@@ -4,7 +4,7 @@ let animationFrameId = null;
 let loadingIndicator, terminal;
 let pathTube;
 let isMovingForward = true;
-let placard; 
+let placard;
 let placardElement;
 let menuElement;
 let tetrisGame; // New variable for Tetris game
@@ -31,7 +31,7 @@ const cameraHeight = 1;
 function initScene() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color(colors.deepBlue);
-    
+
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     if (typeof curve === 'undefined') {
         console.error("Curve is not defined. Make sure createPath() is called before initScene()");
@@ -105,7 +105,7 @@ function addTronMountainSilhouette() {
 // Add Tron-style buildings
 function addTronBuildings() {
     const buildingGeometry = new THREE.BoxGeometry(2, 6, 2);
-    const buildingMaterial = new THREE.MeshPhongMaterial({ 
+    const buildingMaterial = new THREE.MeshPhongMaterial({
         color: colors.deepBlue,
         emissive: colors.neonBlue,
         emissiveIntensity: 0.5,
@@ -114,9 +114,9 @@ function addTronBuildings() {
     });
 
     const buildingPositions = [
-        {x: -8, z: -15}, {x: 8, z: -15},
-        {x: -12, z: -25}, {x: 12, z: -25},
-        {x: -7, z: -35}, {x: 7, z: -35}
+        { x: -8, z: -15 }, { x: 8, z: -15 },
+        { x: -12, z: -25 }, { x: 12, z: -25 },
+        { x: -7, z: -35 }, { x: 7, z: -35 }
     ];
 
     buildingPositions.forEach(pos => {
@@ -128,107 +128,71 @@ function addTronBuildings() {
 
 // Create the path and nodes
 function createPath() {
-path = {
-    points: [
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(0, 0, -10),
-        new THREE.Vector3(5, 0, -20),
-        new THREE.Vector3(-5, 0, -30),
-        new THREE.Vector3(0, 0, -40),
-        new THREE.Vector3(5, 0, -50)  // New point for Tetris node
-    ],
-    nodes: [
-        { 
-            position: new THREE.Vector3(0, 0, 0), 
-            title: "Personal Statement",
-            text: "Innovative and detail-oriented Software Engineer with 5+ years of experience in developing robust web applications and microservices. Passionate about creating efficient, scalable solutions that drive business growth and enhance user experiences. Committed to continuous learning and staying abreast of emerging technologies to deliver cutting-edge software solutions."
-        },
-        { 
-            position: new THREE.Vector3(0, 0, -10), 
-            title: "Professional Experience",
-            text: `
-SENIOR SOFTWARE ENGINEER | TechInnovate Solutions | 2020 - Present
-• Led development of a high-performance e-commerce platform, improving load times by 40% and increasing conversions by 25%
-• Implemented microservices architecture, enhancing system scalability and reducing deployment times by 60%
-• Mentored junior developers, improving team productivity by 30%
+    path = {
+        points: [
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(0, 0, -10),
+            new THREE.Vector3(5, 0, -20),
+            new THREE.Vector3(-5, 0, -30),
+            new THREE.Vector3(0, 0, -40),
+            new THREE.Vector3(5, 0, -50),
+            new THREE.Vector3(0, 0, -60),
+            new THREE.Vector3(-5, 0, -70)
+        ],
+        nodes: [
+            {
+                position: new THREE.Vector3(0, 0, 0),
+                title: "Personal Statement",
+                text: "Jeff Wikstrom\nPhone: (541) 315-1135\nEmail: heffrey78@gmail.com\n\nHighly skilled Senior Software Engineer with a proven track record in leading teams, driving projects to completion, and improving processes through automation. Proficient in backend implementation, service-oriented architectures, cloud orchestration, and CI/CD pipelines."
+            },
+            {
+                position: new THREE.Vector3(0, 0, -10),
+                title: "Current Role: Ernst & Young",
+                text: "Manager - Senior Software Engineer (2/2022 - present)\n\n• Refocused on individual contribution to pursue platform and AI engineering.\n• Served as the data engineer, working in MS-SQL for the audit of a major state client, resulting in immediate and sweeping positive impacts at the state level.\n• Collaborated internally and across several state agencies to create a formal, Power BI-backed executive dashboard for gubernatorial use and review."
+            },
+            {
+                position: new THREE.Vector3(5, 0, -20),
+                title: "Previous Role: Nuvalence, LLC",
+                text: "Senior Software Engineer (2/2022 - present)\n\n• Led several teams consulting with clients in the public sector.\n• Owned devops for the team including CI/CD pipeline, Helm and Kubernetes orchestration, GCP environment, and local environment setup and troubleshooting.\n• Consistently delivered on ambitious timelines.\n• Improved processes of existing teams and worked as the engineering lead of a new team, establishing strong norms.\n• Led backend engineering projects (Springboot) including design, coordination, and key implementations.\n• Created utilities and tooling to ease repetitive dev tasks.\n• Collaborated across the company exploring and writing on AI topics for the company blog."
+            },
+            {
+                position: new THREE.Vector3(-5, 0, -30),
+                title: "Work History",
+                text: "CommerceHub, Inc. (Rithum), Albany, NY\n\n1. Manager, Engineering Success (9/2021 - 2/2022)\n• Created a new department serving a 150-member engineering organization.\n• Led Engineering-wide effort to choose and standardize on a new CI platform.\n• Created training program for AWS SDKs and patterns.\n• Owned engineering wide onboarding efforts.\n\n2. Manager, Software Engineering (3/2021 - 9/2021)\n• Managed software development squad of 6 engineers.\n• Acted as scrum master for a combined team of 14 engineers.\n• Led hiring efforts for the combined team.\n\n3. Lead Software Engineer (9/2019 - 3/2021)\n• Implemented a switch from Kanban to SCRUM for two squads.\n• Led multiple projects to successful completion.\n• Managed a squad of five, hiring three.\n\n4. Software Engineer (4/2018 - 9/2019)\n• Worked on operations and new development of a large legacy ecommerce platform.\n• Rewrote order processing for a major marketplace implementation.\n• Implemented CI/CD pipeline utilizing Gitlab CI, Docker, AWS.\n\nGavant Software, Inc., Troy, NY — Software Engineer (8/2016 - 4/2018)\n\nDST Systems, Inc. (SS&C), Albany, NY — Software Engineer (11/2011 - 8/2016)"
+            },
+            {
+                position: new THREE.Vector3(0, 0, -40),
+                title: "Skills & Education",
+                text: "Primary Technical Skills:\n• Service oriented architectures\n• GCP\n• GitHub\n• GitLab CI/CD\n• LLM orchestration\n• Backend implementation\n• .NET/MS SQL\n• Java/Springboot\n• Python\n\nEducation:\n• M.Sc. in Software Engineering - Regis University (Graduated with Honors)\n• B.S. in Application Development - Kaplan University (Graduated Summa Cum Laude)"
+            },
+            {
+                position: new THREE.Vector3(5, 0, -50),
+                title: "Interests & Volunteering",
+                text: "Interests:\nDisc golf, coffee roasting, fitness, gardening, mycology, reading, gaming, running, 3D printing\n\nVolunteering:\n• Junior Achievement instructor\n• SPW Disc Golf Course volunteer\n\nLanguages:\nEnglish (native), Spanish (fluent), German (learning)"
+            },
+            {
+                position: new THREE.Vector3(0, 0, -60),
+                title: "Recognition",
+                text: "CommerceHub, Albany, NY — 2020 Allstar\nOne of ten individuals recognized in 2020 for outstanding contributions to the company."
+            },
+            {
+                position: new THREE.Vector3(-5, 0, -70),
+                title: "Tetris Game",
+                text: "Take a break and play a game of Tetris!"
+            }
+        ]
+    };
 
-SOFTWARE ENGINEER | DataDrive Systems | 2018 - 2020
-• Developed RESTful APIs for a data analytics platform, processing over 1 million requests daily
-• Optimized database queries, reducing response times by 50%
-• Implemented automated testing, increasing code coverage from 60% to 95%
+    curve = new THREE.CatmullRomCurve3(path.points);
+    currentNodeIndex = 0;
+    console.log("Path created and curve defined");
 
-JUNIOR SOFTWARE DEVELOPER | WebCraft Innovations | 2016 - 2018
-• Contributed to the development of a content management system used by over 100 clients
-• Implemented responsive design, improving mobile user engagement by 35%
-• Resolved 200+ bugs, enhancing overall system stability
-
-SKILLS
-Languages: Java, Python, JavaScript (Node.js, React)
-Databases: MySQL, MongoDB, PostgreSQL
-Tools: Git, Docker, Jenkins, AWS, Kubernetes
-`
-        },
-        { 
-            position: new THREE.Vector3(5, 0, -20), 
-            title: "Education",
-            text: `
-MASTER OF SCIENCE IN COMPUTER SCIENCE | Tech University | 2016
-• Thesis: "Optimizing Machine Learning Algorithms for Big Data Processing"
-• GPA: 3.8/4.0
-
-BACHELOR OF SCIENCE IN SOFTWARE ENGINEERING | Innovation College | 2014
-• Senior Project: Developed a mobile app for campus navigation
-• GPA: 3.7/4.0
-`
-        },
-        { 
-            position: new THREE.Vector3(-5, 0, -30), 
-            title: "Hobbies & Interests",
-            text: `
-1. Open Source Contribution: Active contributor to various open-source projects, including a popular JavaScript framework and a Python data visualization library.
-
-2. Competitive Programming: Regular participant in coding challenges on platforms like LeetCode and HackerRank, consistently ranking in the top 5% of participants.
-
-3. Hiking & Nature Photography: Avid hiker who has completed trails in 10 national parks. Combine this passion with landscape photography, having had work featured in local nature magazines.
-
-4. Game Development: Creating indie games using Unity in spare time. Latest project: a puzzle game that has garnered over 10,000 downloads on mobile platforms.
-
-5. Tech Blogging: Maintain a personal blog discussing latest trends in software development, with a growing readership of over 5,000 monthly visitors.
-
-6. Volunteering: Regular volunteer at local coding bootcamps, teaching programming basics to underprivileged youth and career changers.
-`
-        },
-        { 
-            position: new THREE.Vector3(0, 0, -40), 
-            title: "Contact & Connect",
-            text: `
-Email: jane.doe@email.com
-LinkedIn: linkedin.com/in/janedoe
-GitHub: github.com/janedoe
-Personal Website: janedoe.dev
-Phone: (123) 456-7890
-
-Let's connect and explore how we can innovate together!
-`
-        },
-        {
-            position: new THREE.Vector3(5, 0, -50),
-            title: "Tetris Game",
-            text: "Play a game of Tetris!"
-        }
-    ]
-};
-
-curve = new THREE.CatmullRomCurve3(path.points);
-currentNodeIndex = 0;
-console.log("Path created and curve defined");
-
-// Only call drawPath if the scene has been initialized
-if (scene) {
-    drawPath();
-} else {
-    console.warn("Scene not initialized. drawPath will be called later.");
-}
+    // Only call drawPath if the scene has been initialized
+    if (scene) {
+        drawPath();
+    } else {
+        console.warn("Scene not initialized. drawPath will be called later.");
+    }
 }
 
 function drawPath() {
@@ -317,24 +281,24 @@ function createNodes() {
 function turnAround() {
     isMovingForward = !isMovingForward;
     const currentT = currentNodeIndex / (path.nodes.length - 1);
-    const targetT = isMovingForward ? 
+    const targetT = isMovingForward ?
         Math.min(currentT + 0.1, 1) :
         Math.max(currentT - 0.1, 0);
-    
+
     new TWEEN.Tween({ t: currentT })
         .to({ t: targetT }, 1000)
         .easing(TWEEN.Easing.Quadratic.InOut)
-        .onUpdate(function(object) {
+        .onUpdate(function (object) {
             const t = Math.max(0, Math.min(object.t, 1)); // Ensure t is always between 0 and 1
             const position = getPositionAlongCurve(t);
             camera.position.copy(position);
-            
+
             // Look in the opposite direction, but maintain camera height
             const lookAt = getPositionAlongCurve(isMovingForward ? Math.min(t + 0.05, 1) : Math.max(t - 0.05, 0));
             lookAt.y -= cameraHeight; // Adjust look-at point to be at path level
             camera.lookAt(lookAt);
         })
-        .onComplete(function() {
+        .onComplete(function () {
             updateNodeColors();
             updatePathColor();
         })
@@ -412,23 +376,23 @@ function moveForward() {
         logToTerminal("End of path reached. Cannot move further.");
         return;
     }
-    
+
     const startT = (currentNodeIndex - 1) / (path.nodes.length - 1);
     const endT = currentNodeIndex / (path.nodes.length - 1);
-    
+
     new TWEEN.Tween({ t: startT })
         .to({ t: endT }, 2000)
         .easing(TWEEN.Easing.Quadratic.InOut)
-        .onUpdate(function(object) {
+        .onUpdate(function (object) {
             const position = getPositionAlongCurve(object.t);
             camera.position.copy(position);
-            
+
             // Look ahead on the curve, but maintain camera height
             const lookAhead = getPositionAlongCurve(Math.min(object.t + 0.05, 1));
             lookAhead.y -= cameraHeight; // Adjust look-at point to be at path level
             camera.lookAt(lookAhead);
         })
-        .onComplete(function() {
+        .onComplete(function () {
             updateNodeColors();
             updatePathColor();
         })
@@ -447,24 +411,24 @@ function moveForward() {
         logToTerminal("End of path reached. Cannot move further.");
         return;
     }
-    
+
     const startT = Math.max(0, Math.min((currentNodeIndex - 1) / (path.nodes.length - 1), 1));
     const endT = Math.max(0, Math.min(currentNodeIndex / (path.nodes.length - 1), 1));
-    
+
     new TWEEN.Tween({ t: startT })
         .to({ t: endT }, 2000)
         .easing(TWEEN.Easing.Quadratic.InOut)
-        .onUpdate(function(object) {
+        .onUpdate(function (object) {
             const t = Math.max(0, Math.min(object.t, 1)); // Ensure t is always between 0 and 1
             const position = getPositionAlongCurve(t);
             camera.position.copy(position);
-            
+
             // Look ahead on the curve, but maintain camera height
             const lookAhead = getPositionAlongCurve(Math.min(t + 0.05, 1));
             lookAhead.y -= cameraHeight; // Adjust look-at point to be at path level
             camera.lookAt(lookAhead);
         })
-        .onComplete(function() {
+        .onComplete(function () {
             updateNodeColors();
             updatePathColor();
         })
@@ -487,16 +451,16 @@ function navigateToNode(targetIndex) {
     new TWEEN.Tween({ t: startT })
         .to({ t: endT }, duration)
         .easing(TWEEN.Easing.Quadratic.InOut)
-        .onUpdate(function(object) {
+        .onUpdate(function (object) {
             const position = getPositionAlongCurve(object.t);
             camera.position.copy(position);
-            
+
             // Look ahead on the curve, but maintain camera height
             const lookAhead = getPositionAlongCurve(Math.min(object.t + 0.05, 1));
             lookAhead.y -= cameraHeight; // Adjust look-at point to be at path level
             camera.lookAt(lookAhead);
         })
-        .onComplete(function() {
+        .onComplete(function () {
             currentNodeIndex = targetIndex;
             updateNodeColors();
             updatePathColor();
@@ -513,10 +477,10 @@ function updateCameraPosition() {
     const nextNode = isMovingForward ?
         path.nodes[Math.min(currentNodeIndex + 1, path.nodes.length - 1)] :
         path.nodes[Math.max(currentNodeIndex - 1, 0)];
-    
+
     const direction = new THREE.Vector3().subVectors(nextNode.position, currentNode.position);
     const targetPosition = new THREE.Vector3().addVectors(currentNode.position, direction.normalize().multiplyScalar(8));
-    
+
     new TWEEN.Tween(camera.position)
         .to(targetPosition, 1000)
         .easing(TWEEN.Easing.Quadratic.Out)
@@ -661,7 +625,7 @@ function toggleMenu() {
 
 function showMenu() {
     menuElement.style.display = 'block';
-    menuElement.innerHTML = path.nodes.map((node, index) => 
+    menuElement.innerHTML = path.nodes.map((node, index) =>
         `<div>${index}: ${node.title}</div>`
     ).join('');
     logToTerminal('Navigation menu opened');
@@ -772,24 +736,24 @@ function hideLoadingIndicator() {
 function init() {
     console.log("Initializing...");
     showLoadingIndicator();
-    
+
     console.log("Creating path...");
     createPath();
-    
+
     console.log("Initializing scene...");
     initScene();
-    
+
     console.log("Drawing path...");
     drawPath(); // Call drawPath here, after scene is initialized
-    
+
     console.log("Creating nodes...");
     createNodes();
-    
+
     console.log("Creating terminal...");
     createTerminal();
     console.log("Creating menu...");
     createMenu();
-    
+
     window.addEventListener('keydown', handleInput);
 
     // Load the Tetris game script
