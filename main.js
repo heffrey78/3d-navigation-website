@@ -7,6 +7,8 @@ let isMovingForward = true;
 let placard; 
 let placardElement;
 let menuElement;
+let tetrisGame; // New variable for Tetris game
+let isTetrisActive = false; // New variable to track if Tetris is active
 
 // Tron color palette
 const colors = {
@@ -132,7 +134,8 @@ path = {
         new THREE.Vector3(0, 0, -10),
         new THREE.Vector3(5, 0, -20),
         new THREE.Vector3(-5, 0, -30),
-        new THREE.Vector3(0, 0, -40)
+        new THREE.Vector3(0, 0, -40),
+        new THREE.Vector3(5, 0, -50)  // New point for Tetris node
     ],
     nodes: [
         { 
@@ -207,20 +210,25 @@ Phone: (123) 456-7890
 
 Let's connect and explore how we can innovate together!
 `
+        },
+        {
+            position: new THREE.Vector3(5, 0, -50),
+            title: "Tetris Game",
+            text: "Play a game of Tetris!"
         }
     ]
 };
 
-    curve = new THREE.CatmullRomCurve3(path.points);
-    currentNodeIndex = 0;
-    console.log("Path created and curve defined");
-    
-    // Only call drawPath if the scene has been initialized
-    if (scene) {
-        drawPath();
-    } else {
-        console.warn("Scene not initialized. drawPath will be called later.");
-    }
+curve = new THREE.CatmullRomCurve3(path.points);
+currentNodeIndex = 0;
+console.log("Path created and curve defined");
+
+// Only call drawPath if the scene has been initialized
+if (scene) {
+    drawPath();
+} else {
+    console.warn("Scene not initialized. drawPath will be called later.");
+}
 }
 
 function drawPath() {
@@ -337,6 +345,17 @@ function turnAround() {
 
 // Handle user input
 function handleInput(event) {
+    if (isTetrisActive) {
+        // If Tetris is active, only handle Escape key to exit the game
+        if (event.key === 'Escape') {
+            stopTetrisGame();
+            hidePlacard();
+            isTetrisActive = false;
+        }
+        // Let all other keys be handled by the Tetris game
+        return;
+    }
+
     switch (event.key) {
         case 'ArrowUp':
             hidePlacard();
@@ -564,6 +583,14 @@ function showPlacard() {
     `;
     document.body.appendChild(placardElement);
 
+    if (currentNode.title === "Tetris Game") {
+        tetrisGame = document.createElement('div');
+        tetrisGame.id = 'tetris-container';
+        placardElement.appendChild(tetrisGame);
+        createTetrisGame('tetris-container');
+        isTetrisActive = true;
+    }
+
     updatePlacardPosition();
 
     logToTerminal(`Showing placard for ${currentNode.title}`);
@@ -571,6 +598,14 @@ function showPlacard() {
 
 function hidePlacard() {
     if (placardElement && placardElement.parentNode) {
+        if (tetrisGame) {
+            // Stop the Tetris game if it's running
+            if (typeof stopTetrisGame === 'function') {
+                stopTetrisGame();
+            }
+            tetrisGame = null;
+            isTetrisActive = false;
+        }
         placardElement.parentNode.removeChild(placardElement);
         placardElement = null;
         logToTerminal('Hiding placard');
@@ -756,6 +791,14 @@ function init() {
     createMenu();
     
     window.addEventListener('keydown', handleInput);
+
+    // Load the Tetris game script
+    const tetrisScript = document.createElement('script');
+    tetrisScript.src = 'tetris.js';
+    tetrisScript.onload = () => {
+        console.log("Tetris game script loaded");
+    };
+    document.head.appendChild(tetrisScript);
 
     console.log("Starting animation in 1 second...");
     setTimeout(() => {
