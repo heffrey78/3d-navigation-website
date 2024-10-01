@@ -96,37 +96,51 @@ class App {
     handleInput(event) {
         this.uiManager.logToTerminal(`Key pressed: ${event.key} (Key code: ${event.keyCode})`);
         
-        if (this.tetrisManager.isTetrisActive) {
+        if (this.tetrisManager.isActiveGame()) {
+            console.log("Tetris game is active, handling Tetris input");
             if (event.key === 'Escape') {
+                console.log("Exiting Tetris game");
                 this.uiManager.logToTerminal('Exiting Tetris game');
                 this.tetrisManager.stopTetrisGame();
-                this.uiManager.hidePlacard();
+                this.uiManager.showGameMenu();
             } else {
                 this.tetrisManager.handleTetrisInput(event);
             }
             return;
         }
 
+        if (this.uiManager.gameMenuActive) {
+            console.log("Game menu is active, handling game menu input");
+            this.handleGameMenuInput(event);
+            return;
+        }
+
         switch (event.key) {
             case 'ArrowUp':
+                console.log("Moving forward");
                 this.uiManager.hidePlacard();
                 this.navigationManager.moveForward();
                 break;
             case 'ArrowDown':
+                console.log("Turning around");
                 this.uiManager.hidePlacard();
                 this.navigationManager.turnAround();
                 break;
             case 'Enter':
+                console.log("Showing placard");
                 this.uiManager.showPlacard();
                 const currentNode = this.pathManager.path.nodes[this.navigationManager.currentNodeIndex];
-                if (currentNode.title === "Tetris Game") {
-                    this.tetrisManager.startTetrisGame();
+                if (currentNode.title === "Game Center") {
+                    console.log("Entered Game Center, showing game menu");
+                    this.uiManager.showGameMenu();
                 }
                 break;
             case 'Escape':
+                console.log("Hiding placard");
                 this.uiManager.hidePlacard();
                 break;
             case ' ':
+                console.log("Toggling menu");
                 this.uiManager.toggleMenu();
                 break;
             case '0':
@@ -141,10 +155,33 @@ class App {
             case '9':
                 const nodeIndex = parseInt(event.key);
                 if (nodeIndex < this.pathManager.path.nodes.length) {
+                    console.log(`Navigating to node ${nodeIndex}`);
                     this.uiManager.hidePlacard();
                     this.navigationManager.navigateToNode(nodeIndex);
                 }
                 break;
+        }
+    }
+
+    handleGameMenuInput(event) {
+        switch (event.key) {
+            case '1':
+                console.log("Starting Tetris game from game menu");
+                this.uiManager.logToTerminal('Starting Tetris game');
+                this.tetrisManager.startTetrisGame();
+                break;
+            case '2':
+            case '3':
+                console.log("Attempted to start unimplemented game");
+                this.uiManager.logToTerminal('This game is not yet implemented.');
+                break;
+            case 'Escape':
+                console.log("Exiting game menu");
+                this.uiManager.hidePlacard();
+                break;
+            default:
+                console.log("Invalid game menu selection");
+                this.uiManager.logToTerminal('Invalid selection. Please choose a number from the list.');
         }
     }
 

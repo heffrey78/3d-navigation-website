@@ -50,8 +50,8 @@ export const pathData = {
         },
         {
             position: new THREE.Vector3(-5, 0, -70),
-            title: "Tetris Game",
-            text: "Take a break and play a game of Tetris!"
+            title: "Game Center",
+            text: "Take a break and play a game! Press Enter to view the game menu and select from the following games:\n\n1. Tetris\n2. [Future Game]\n3. [Future Game]"
         }
     ]
 };

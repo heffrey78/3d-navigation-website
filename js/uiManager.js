@@ -10,6 +10,7 @@ export class UIManager {
         this.menuElement = null;
         this.terminal = null;
         this.loadingIndicator = null;
+        this.gameMenuActive = false;
     }
 
     async createUI(pathManager, navigationManager) {
@@ -80,20 +81,68 @@ export class UIManager {
 
         this.placardElement = document.createElement('div');
         this.placardElement.id = 'placard';
-        this.placardElement.innerHTML = `
-            <h2>${currentNode.title}</h2>
-            <div class="placard-content">${currentNode.text}</div>
-        `;
+
+        if (currentNode.title === "Game Center") {
+            this.showGameMenu();
+        } else {
+            this.placardElement.innerHTML = `
+                <h2>${currentNode.title}</h2>
+                <div class="placard-content">${currentNode.text}</div>
+            `;
+        }
+
         document.body.appendChild(this.placardElement);
 
         this.updatePlacardPosition();
         this.logToTerminal(`Showing placard for ${currentNode.title}`);
     }
 
+    showGameMenu() {
+        this.gameMenuActive = true;
+        this.placardElement.innerHTML = `
+            <h2>Game Center</h2>
+            <div class="placard-content">
+                Select a game to play:
+                <ol>
+                    <li>Tetris</li>
+                    <li>[Future Game]</li>
+                    <li>[Future Game]</li>
+                </ol>
+                Press the number key to select a game.
+            </div>
+        `;
+        this.logToTerminal('Game menu displayed');
+    }
+
+    handleGameSelection(key) {
+        if (!this.gameMenuActive) return;
+
+        switch (key) {
+            case '1':
+                this.startGame('Tetris');
+                break;
+            case '2':
+            case '3':
+                this.logToTerminal('This game is not yet implemented.');
+                break;
+            default:
+                this.logToTerminal('Invalid selection. Please choose a number from the list.');
+        }
+    }
+
+    startGame(gameName) {
+        this.gameMenuActive = false;
+        this.placardElement.innerHTML = `<h2>${gameName}</h2><div id="game-container"></div>`;
+        this.logToTerminal(`Starting ${gameName}`);
+        // Here you would call the appropriate game manager to start the game
+        // For example: this.tetrisManager.startTetrisGame();
+    }
+
     hidePlacard() {
         if (this.placardElement && this.placardElement.parentNode) {
             this.placardElement.parentNode.removeChild(this.placardElement);
             this.placardElement = null;
+            this.gameMenuActive = false;
             this.logToTerminal('Hiding placard');
         }
     }

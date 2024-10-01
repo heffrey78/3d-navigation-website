@@ -1,6 +1,6 @@
 # 3D Navigation Website
 
-This project demonstrates a 3D navigable plane with a dotted path, allowing users to move through a 3D world using arrow keys. Nodes along the path feature thumbnails that can be interacted with to display more detailed information.
+This project demonstrates a 3D navigable plane with a dotted path, allowing users to move through a 3D world using arrow keys. Nodes along the path feature thumbnails that can be interacted with to display more detailed information. The project now includes a Game Center with an integrated Tetris game.
 
 ## Features
 
@@ -11,11 +11,12 @@ This project demonstrates a 3D navigable plane with a dotted path, allowing user
 - Debug information display
 - Responsive design
 - Modular architecture using ES6 modules
-- Integrated Tetris game at a specific node
+- Game Center with an integrated Tetris game
+- Menu system for game selection
 
 ## Project Structure
 
-The project now uses a modular structure with ES6 modules:
+The project uses a modular structure with ES6 modules:
 
 - `js/app.js`: Main application orchestrator
 - `js/sceneManager.js`: Manages the 3D scene and Tron-style effects
@@ -28,26 +29,23 @@ The project now uses a modular structure with ES6 modules:
 - `tetris.js`: Tetris game implementation
 - `index.html`: Main HTML file
 - `styles.css`: CSS styles for the application
+- `start_server.py`: Python script to start a local server
 
 ## How to Run
 
-1. Ensure you have a modern web browser installed (Chrome, Firefox, Safari, or Edge).
+1. Ensure you have Python installed on your system (Python 3.x is recommended).
 2. Navigate to the project directory in your terminal or command prompt.
-3. Start a local server. You can use Python's built-in HTTP server if you have Python installed:
+3. Run the following command to start the local server:
 
-   For Python 3.x:
    ```
-   python -m http.server
-   ```
-
-   For Python 2.x:
-   ```
-   python -m SimpleHTTPServer
+   python start_server.py
    ```
 
-   If you don't have Python installed, you can use any other local server of your choice.
+   If you're using Python 2.x, you may need to use `python -m SimpleHTTPServer` instead.
 
-4. Open your web browser and go to `http://localhost:8000` (or whatever port your local server is using).
+4. Open your web browser and go to `http://localhost:8000`.
+
+If you don't have Python installed, you can use any other local server of your choice.
 
 ## How to Use
 
@@ -56,7 +54,13 @@ The project now uses a modular structure with ES6 modules:
 - Press Enter to view detailed information about the current node.
 - Press Space to open the navigation menu.
 - Use number keys (0-9) to quickly navigate to specific nodes.
-- Press Escape to close placards or exit the Tetris game.
+- When at the Game Center node:
+  - Press Enter to open the game menu.
+  - Use number keys to select a game (currently, only Tetris is available).
+- In the Tetris game:
+  - Use arrow keys to move and rotate pieces.
+  - Press Escape to exit the game and return to the game menu.
+- Press Escape to close placards or exit menus.
 - Observe the debug information in the terminal for current position and node details.
 
 ## Testing and Troubleshooting
@@ -71,12 +75,11 @@ To ensure everything is working correctly, follow these steps:
    - The camera should smoothly move to new positions along the path.
    - The terminal should update with new node information.
    - Console logs should appear for each key press.
-6. If the arrow keys don't seem to work:
-   - Click on the webpage to ensure it has focus.
-   - Check if the console logs appear when pressing the keys. If not, there might be an issue with the event listener.
-7. Press Enter when on a node to check if the placard with detailed information appears.
-8. Navigate to the Tetris game node and verify that the game starts and can be played.
-9. Try to reach the end of the path by pressing the Up Arrow key multiple times. The movement should stop at the last node.
+6. Navigate to the Game Center node and verify that:
+   - Pressing Enter opens the game menu.
+   - You can select and start the Tetris game.
+   - The Tetris game is playable and can be exited with the Escape key.
+7. Try to reach the end of the path by pressing the Up Arrow key multiple times. The movement should stop at the last node.
 
 If you encounter any issues:
 
@@ -84,6 +87,7 @@ If you encounter any issues:
 - Verify that all files are in the correct location and have the right content.
 - Try clearing your browser cache and reloading the page.
 - If using Chrome, test in an Incognito window to rule out extension conflicts.
+- Ensure you're running the application through the local server and not directly from the file system.
 
 ## Reporting Issues
 

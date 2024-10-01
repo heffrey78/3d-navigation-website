@@ -13,15 +13,20 @@ export class TetrisManager {
             if (this.tetrisGame) {
                 this.stopTetrisGame();
             }
-            this.tetrisGame = document.createElement('div');
-            this.tetrisGame.id = 'tetris-container';
-            if (this.uiManager.placardElement) {
-                this.uiManager.placardElement.appendChild(this.tetrisGame);
+            
+            // Use uiManager to prepare the game container
+            this.uiManager.startGame('Tetris');
+            
+            const gameContainer = document.getElementById('game-container');
+            if (gameContainer) {
+                this.tetrisGame = document.createElement('div');
+                this.tetrisGame.id = 'tetris-container';
+                gameContainer.appendChild(this.tetrisGame);
                 createTetrisGame('tetris-container');
                 this.isTetrisActive = true;
                 this.uiManager.logToTerminal('Tetris game started');
             } else {
-                throw new Error('Placard element not found');
+                throw new Error('Game container not found');
             }
         } catch (error) {
             console.error('Error starting Tetris game:', error);
@@ -55,5 +60,13 @@ export class TetrisManager {
             console.error('Error handling Tetris input:', error);
             this.uiManager.logToTerminal(`Failed to handle Tetris input: ${error.message}`);
         }
+    }
+
+    isActiveGame() {
+        return this.isTetrisActive;
+    }
+
+    cleanUp() {
+        this.stopTetrisGame();
     }
 }
